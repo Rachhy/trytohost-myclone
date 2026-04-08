@@ -3,7 +3,7 @@ services:
   - type: web
     name: camcyber-api
     runtime: node
-    rootDir: api-v4  # Points to your API folder
+    rootDir: api-v4
     buildCommand: npm install && npm run build
     startCommand: npm run start:prod
     envVars:
@@ -16,7 +16,7 @@ services:
   - type: web
     name: camcyber-file
     runtime: node
-    rootDir: file-v3 # Points to your File folder
+    rootDir: file-v3
     buildCommand: npm install
     startCommand: npm start
 
@@ -24,14 +24,9 @@ services:
   - type: web
     name: camcyber-frontend
     runtime: node
-    rootDir: web-v4  # Points to your Angular folder
+    rootDir: web-v4
     buildCommand: npm install && npm run build
-    startCommand: node dist/server.js # Or your specific production start command
-    envVars:
-      - key: API_BASE_URL
-        fromStack:
-          service: camcyber-api
-          property: host
+    startCommand: npm start # Ensure this matches your package.json start script
 
 # 4. The PostgreSQL Database
 databases:
