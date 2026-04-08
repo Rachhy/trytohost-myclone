@@ -9,7 +9,7 @@ dotenv.config();
 
 /** @MySQL and @Postgresql */
 const sequelizeConfig: SequelizeModuleOptions = {
-    dialect     : process.env.DB_CONNECTION as Dialect || 'mysql',
+    dialect     : process.env.DB_CONNECTION as Dialect || 'postgres',
     host        : process.env.DB_HOST,
     port        : Number(process.env.DB_PORT),
     username    : process.env.DB_USERNAME,
