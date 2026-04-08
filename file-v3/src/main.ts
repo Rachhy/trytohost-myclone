@@ -53,9 +53,9 @@ const bootstrap = async () => {
         await sequelize.authenticate();
         // Port app running
         const PORT = process.env.PORT || 8080;
-        app.listen(PORT, () => {
-            console.log(`\x1b[32mApplication running on host: \x1b[34mhttp://localhost:${PORT}\x1b[37m`);
-        });
+        app.listen(Number(PORT), '0.0.0.0', () => {
+    console.log(`Application is live on port ${PORT}`);
+});
     } catch (error) {
         // Use a type assertion to tell TypeScript `error` is of type `Error`
         console.error('\x1b[33mUnable to connect to the database: \x1b[31m' + (error as Error).message + '\x1b[0m');
