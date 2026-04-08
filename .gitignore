@@ -1,0 +1,14 @@
+# Database and PGAdmin data
+db/
+pgadmin/
+
+# Node modules
+**/node_modules/
+
+# Environment secrets
+.env
+**/.env
+
+# Build files
+dist/
+.angular/

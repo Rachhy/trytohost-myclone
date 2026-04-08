@@ -1,0 +1,19 @@
+# Dependency directories
+node_modules
+
+# dotenv environment variables file
+.env
+
+# Ignore public/uploads directory
+public/uploads/*
+
+# Ignore File
+package-lock.json
+
+# IDE - VSCode
+.vscode/*
+.history/*
+
+# System Files
+.DS_Store
+Thumbs.db

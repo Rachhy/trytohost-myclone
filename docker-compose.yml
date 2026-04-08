@@ -1,0 +1,114 @@
+version: "3.8"
+services: 
+    
+    # ==============================================>> DB
+    db:
+        image: postgres:15
+        container_name: pos1-db-v2
+        restart: unless-stopped
+        ports:
+            - "4001:5432"
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: pw@2024
+            POSTGRES_DB: pos
+        volumes:
+            - ./db:/var/lib/postgresql/data
+        networks:
+            - v2
+    
+    # ==============================================>> pgAdmin
+    db-tool:
+        image: dpage/pgadmin4
+        container_name: pos1-pgadmin-v2
+        restart: always
+        ports:
+            - "8202:80"
+        environment:
+            PGADMIN_DEFAULT_EMAIL: postgres@camcyber.com
+            PGADMIN_DEFAULT_PASSWORD: pw@2024
+        volumes:
+            - ./pgadmin:/var/lib/pgadmin
+        networks:
+            - v2
+
+    # ==============================================>> API
+    # api-v2.3: 
+    #     container_name: pos-api-v2.3
+    #     restart: unless-stopped
+    #     tty: true
+    #     build: 
+    #         context: ./api-v3/.
+    #         dockerfile: Dockerfile
+    #     volumes: 
+    #         - ./api-v3/src:/app/src
+    #     ports:
+    #         - "8203:1000"
+    #     environment: 
+           
+    #         #==========================>> DB Config
+    #         DB_CONNECTION: postgres
+    #         DB_HOST: pos-db-v2
+    #         DB_PORT: 5432
+    #         DB_USERNAME: postgres
+    #         DB_PASSWORD: pos_v2@2024
+    #         DB_DATABASE: minimart
+
+    #         #==========================>> JWT
+    #         JWT_SECRET: 'havsbdbfhvahksdblfjbh'
+    #         JWT_EXPIRES: '1w'
+
+    #         #==========================>> File
+    #         FILE_BASE_URL:     http://pos-file-v2:8080
+
+    #     networks: 
+    #         - v2
+
+    # # ==============================================>> File
+    # file: 
+    #     container_name: pos-file-v2
+    #     build: 
+    #         context: ./file-v3/.
+    #         dockerfile: Dockerfile
+    #     volumes: 
+    #         - ./file-v3/src:/app/src #remove on Prod
+    #         - ./file-v3/public:/app/public
+    #     ports:
+    #         - "8204:8080"
+    #     environment: 
+
+    #         PORT: 8080
+
+    #         #==========================>> DB Config
+    #         DB_CONNECTION: postgres
+    #         DB_HOST: pos-db-v2
+    #         DB_PORT: 5432
+    #         DB_USERNAME: postgres
+    #         DB_PASSWORD: pos_v2@2024
+    #         DB_DATABASE: file
+
+    #     networks: 
+    #         - v2
+    
+    # ==============================================>> Report Generator
+    # report: 
+    #     image: jsreport/jsreport
+    #     container_name: pos-report-v2
+    #     ports:
+    #         - "8205:5488"
+    #     networks:
+    #         - v2
+    
+    # # ==============================================>> Web
+    # web-v2.3: 
+    #     container_name: pos-web-v2.3
+    #     build:
+    #         context: ./web-v3/.
+    #         dockerfile: Dockerfile
+    #     ports:
+    #         - "8006:80"
+    #     networks: 
+    #         - v2
+
+networks: 
+    v2:
