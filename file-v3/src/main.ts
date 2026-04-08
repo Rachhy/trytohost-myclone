@@ -48,18 +48,24 @@ app.use(ErrorsFilter.error());
 
 const bootstrap = async () => {
     try {
-        // Connect to the Dadabase
+        // 1. Database Connection
         const sequelize = new Sequelize(DatabaseConfig.getSequelizeConfig());
         await sequelize.authenticate();
-        // Port app running
-        const PORT = process.env.PORT || 8080;
-        app.listen(PORT, () => {
-            console.log(`\x1b[32mApplication running on host: \x1b[34mhttp://localhost:${PORT}\x1b[37m`);
+        console.log('\x1b[32mDatabase connection established successfully.\x1b[0m');
+
+        // 2. Port Configuration
+        // Render provides the PORT as a string; we must convert it to a Number
+        const PORT = Number(process.env.PORT) || 8080;
+
+        // 3. Application Listener
+        // We MUST use '0.0.0.0' to allow Render to route external traffic to the container
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`\x1b[32mApplication running on: \x1b[34mhttp://0.0.0.0:${PORT}\x1b[37m`);
         });
+
     } catch (error) {
-        // Use a type assertion to tell TypeScript `error` is of type `Error`
         console.error('\x1b[33mUnable to connect to the database: \x1b[31m' + (error as Error).message + '\x1b[0m');
-        process.exit(1); // It's common to use `1` or another non-zero value to indicate an error exit
+        process.exit(1); 
     }
 }
 bootstrap();

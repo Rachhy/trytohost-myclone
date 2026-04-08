@@ -53,7 +53,7 @@ class AppInitializer {
         try {
 
             await this.initializeApplication();
-            await this.app.listen(port);
+            await this.app.listen(port, '0.0.0.0');
             
             this.logger.log(`\x1b[32m I Love You.: \x1b[34mhttp://localhost:${port}\x1b[37m`);
         
