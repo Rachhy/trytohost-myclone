@@ -17,7 +17,13 @@ const sequelizeConfig: SequelizeModuleOptions = {
     database    : process.env.DB_DATABASE,
     timezone    : process.env.DB_TIMEZONE || 'Asia/Phnom_Penh',
     models      : [__dirname + '/../app/models/**/*.model.{ts,js}'],
-    logging     : false
+    logging     : false,
+    dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 };
 
 export default sequelizeConfig;
